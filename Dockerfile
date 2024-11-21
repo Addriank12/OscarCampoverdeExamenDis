@@ -18,7 +18,7 @@ WORKDIR /dev_vol
 RUN npm install && ng build
 
 # Copiar los archivos construidos al directorio de Apache
-RUN cp -r /dev_vol/dist/* /var/www/examen.dis.com/html/
+RUN cp -r /dev_vol/dist/browser/* /var/www/examen.dis.com/html/
 
 # Configurar Apache para servir el contenido
 RUN echo '<VirtualHost *:80>\n\
