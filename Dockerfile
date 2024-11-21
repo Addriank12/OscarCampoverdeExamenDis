@@ -17,6 +17,19 @@ RUN ls /dev_vol -l && \
 WORKDIR /dev_vol
 RUN npm install && ng build
 
+# Copiar los archivos construidos al directorio de Apache
+RUN cp -r /dev_vol/dist/* /var/www/examen.dis.com/html/
+
+# Configurar Apache para servir el contenido
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/examen.dis.com/html\n\
+    <Directory /var/www/examen.dis.com/html>\n\
+        Options Indexes FollowSymLinks\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
 RUN ls /var/www/examen.dis.com/html -l
 
 
